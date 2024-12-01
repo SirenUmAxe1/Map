@@ -5,15 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Interactive Map</title>
     <style>
-        /* Make the area visible and glow on hover */
-        area {
-            outline: 2px solid transparent;
-            transition: all 0.3s ease-in-out;
-        }
-
+        /* Glow effect */
         area:hover {
-            outline: 2px solid rgba(255, 0, 0, 0.7); /* Glow effect on hover */
-            box-shadow: 0 0 15px rgba(255, 0, 0, 0.7); /* Glow effect */
+            outline: 2px solid rgba(255, 0, 0, 0.7); /* Glow on hover */
+            box-shadow: 0 0 15px rgba(255, 0, 0, 0.7);
         }
     </style>
 </head>
@@ -21,8 +16,20 @@
     <img src="empty map.png" usemap="#image-map">
 
     <map name="image-map">
-        <area target="_self" alt="S3-Q23" title="S23-Q3" href="https://cat-bounce.com/" coords="957,1619,960,1896,316,1614,33,955,299,959,495,1414" shape="poly">
-        <area target="_self" alt="piss" title="piss" href="https://cat-bounce.com/" coords="1223,1660,87" shape="circle">
+        <area target="_self" alt="S3-Q3" title="S3-Q3" href="https://cat-bounce.com/" coords="957,1619,960,1896,316,1614,33,955,299,959,495,1414" shape="poly" onmouseover="highlightArea(this)" onmouseout="removeHighlight(this)">
+        <area target="_self" alt="piss" title="piss" href="https://cat-bounce.com/" coords="1223,1660,87" shape="circle" onmouseover="highlightArea(this)" onmouseout="removeHighlight(this)">
     </map>
+
+    <script>
+        function highlightArea(area) {
+            area.style.outline = '2px solid rgba(255, 0, 0, 0.7)';
+            area.style.boxShadow = '0 0 15px rgba(255, 0, 0, 0.7)';
+        }
+
+        function removeHighlight(area) {
+            area.style.outline = '';
+            area.style.boxShadow = '';
+        }
+    </script>
 </body>
 </html>

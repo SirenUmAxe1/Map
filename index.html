@@ -5,52 +5,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Interactive Map</title>
     <style>
-        .map-container {
-            position: relative;
-            display: inline-block;
-        }
-        .map-container img {
-            display: block;
-            width: 100%;
-            height: auto;
-        }
-
-        /* Polygon shape using clip-path */
-        .area-poly {
+        /* Make the areas visible on hover by applying a highlight */
+        area {
             position: absolute;
-            background-color: rgba(255, 0, 0, 0.2); /* Transparent area */
-            border: 2px solid rgba(0, 255, 0, 0.5); /* Visible border */
-            clip-path: polygon(57% 3%, 59% 16%, 5% 17%, 4% 60%, 17% 81%, 68% 79%, 73% 66%, 82% 27%, 92% 19%, 87% 5%);
-            transition: all 0.3s ease;
-            width: 200px; /* Adjust size */
-            height: 200px; /* Adjust size */
-        }
-
-        /* Circle shape using border-radius */
-        .area-circle {
-            position: absolute;
-            width: 174px; /* Diameter (2 * radius) */
-            height: 174px; /* Diameter */
-            border-radius: 50%; /* Circle */
-            background-color: rgba(255, 0, 0, 0.2); /* Transparent area */
-            border: 2px solid rgba(0, 255, 0, 0.5); /* Visible border */
+            outline: 2px solid rgba(255, 0, 0, 0.7); /* Add visible borders on hover */
+            background-color: rgba(255, 0, 0, 0.3); /* Optional: Make them semi-transparent */
             transition: all 0.3s ease;
         }
-
-        /* Hover effect */
-        .area-poly:hover, .area-circle:hover {
-            border-color: rgba(255, 0, 0, 0.7); /* Glow effect */
-            box-shadow: 0 0 15px rgba(255, 0, 0, 0.7);
+        
+        area:hover {
+            outline: 2px solid rgba(0, 255, 0, 0.7); /* Glow on hover */
+            background-color: rgba(0, 255, 0, 0.3); /* Highlight on hover */
         }
     </style>
 </head>
 <body>
-    <div class="map-container">
-        <img src="empty map.png" usemap="#image-map">
-        <!-- Define the clickable polygon area using clip-path -->
-        <a href="https://cat-bounce.com/" class="area-poly" style="top: 955px; left: 33px;" title="S3-Q3"></a>
-        <!-- Define the clickable circle area -->
-        <a href="https://cat-bounce.com/" class="area-circle" style="top: 1573px; left: 1136px;" title="piss"></a>
-    </div>
+    <img src="empty map.png" usemap="#image-map">
+    <map name="image-map">
+        <area target="_self" alt="S3-Q3" title="S3-Q3" href="https://cat-bounce.com/" coords="957,1619,960,1896,316,1614,33,955,299,959,495,1414" shape="poly">
+        <area target="_self" alt="piss" title="piss" href="https://cat-bounce.com/" coords="1223,1660,87" shape="circle">
+    </map>
 </body>
 </html>

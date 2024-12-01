@@ -5,25 +5,81 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Interactive Map</title>
     <style>
-        /* Make the areas visible on hover by applying a highlight */
-        area {
+        .map-container {
+            position: relative;
+            display: inline-block;
+        }
+        .map-container img {
+            display: block;
+            width: 100%;
+            height: auto;
+        }
+
+        /* Base style for overlay */
+        .overlay {
             position: absolute;
-            outline: 2px solid rgba(255, 0, 0, 0.7); /* Add visible borders on hover */
-            background-color: rgba(255, 0, 0, 0.3); /* Optional: Make them semi-transparent */
+            border: 2px solid rgba(0, 255, 0, 0.5); /* Green border */
+            background-color: rgba(0, 255, 0, 0.2); /* Transparent background */
+            pointer-events: none;
             transition: all 0.3s ease;
         }
-        
-        area:hover {
-            outline: 2px solid rgba(0, 255, 0, 0.7); /* Glow on hover */
-            background-color: rgba(0, 255, 0, 0.3); /* Highlight on hover */
+
+        .overlay:hover {
+            border-color: rgba(255, 0, 0, 0.7); /* Red glow on hover */
+            box-shadow: 0 0 15px rgba(255, 0, 0, 0.7);
         }
     </style>
 </head>
 <body>
+
+<div class="map-container">
     <img src="empty map.png" usemap="#image-map">
-    <map name="image-map">
-        <area target="_self" alt="S3-Q3" title="S3-Q3" href="https://cat-bounce.com/" coords="957,1619,960,1896,316,1614,33,955,299,959,495,1414" shape="poly">
-        <area target="_self" alt="piss" title="piss" href="https://cat-bounce.com/" coords="1223,1660,87" shape="circle">
-    </map>
+    <!-- Overlays for polygon and circle -->
+    <div class="overlay" id="overlay1"></div>
+    <div class="overlay" id="overlay2"></div>
+</div>
+
+<map name="image-map">
+    <area target="_self" alt="S3-Q3" title="S3-Q3" href="https://cat-bounce.com/" coords="957,1619,960,1896,316,1614,33,955,299,959,495,1414" shape="poly">
+    <area target="_self" alt="piss" title="piss" href="https://cat-bounce.com/" coords="1223,1660,87" shape="circle">
+</map>
+
+<script>
+    // Define the coordinates for the overlays
+    const polygonCoords = [957,1619,960,1896,316,1614,33,955,299,959,495,1414];
+    const circleCoords = [1223,1660,87];
+
+    // Function to position polygon overlay
+    function createPolygonOverlay() {
+        const overlay = document.getElementById("overlay1");
+        const coords = polygonCoords;
+
+        // Setting width, height, and position for polygon overlay
+        overlay.style.clipPath = `polygon(${coords[0]}px ${coords[1]}px, ${coords[2]}px ${coords[3]}px, ${coords[4]}px ${coords[5]}px, ${coords[6]}px ${coords[7]}px, ${coords[8]}px ${coords[9]}px, ${coords[10]}px ${coords[11]}px)`;
+        overlay.style.top = `${Math.min(...coords.filter((_, i) => i % 2 !== 0))}px`;
+        overlay.style.left = `${Math.min(...coords.filter((_, i) => i % 2 === 0))}px`;
+        overlay.style.width = `${Math.max(...coords.filter((_, i) => i % 2 === 0)) - Math.min(...coords.filter((_, i) => i % 2 === 0))}px`;
+        overlay.style.height = `${Math.max(...coords.filter((_, i) => i % 2 !== 0)) - Math.min(...coords.filter((_, i) => i % 2 !== 0))}px`;
+    }
+
+    // Function to position circle overlay
+    function createCircleOverlay() {
+        const overlay = document.getElementById("overlay2");
+        const [centerX, centerY, radius] = circleCoords;
+
+        overlay.style.width = `${radius * 2}px`; // diameter
+        overlay.style.height = `${radius * 2}px`;
+        overlay.style.top = `${centerY - radius}px`;
+        overlay.style.left = `${centerX - radius}px`;
+        overlay.style.borderRadius = "50%";
+    }
+
+    // Run the functions on page load
+    window.onload = function() {
+        createPolygonOverlay();
+        createCircleOverlay();
+    };
+</script>
+
 </body>
 </html>

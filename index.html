@@ -5,92 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Interactive Map</title>
     <style>
-        .map-container {
-            position: relative;
-            display: inline-block;
+        area {
+            outline: 2px solid red; /* Red border to make areas visible */
+            background-color: rgba(255, 0, 0, 0.2); /* Light red background on hover */
         }
-        .map-container img {
-            display: block;
-            width: 100%;
-            height: auto;
-        }
-
-        /* Overlay styles */
-        .overlay {
-            position: absolute;
-            border: 2px solid rgba(0, 255, 0, 0.5); /* Green border */
-            background-color: rgba(0, 255, 0, 0.2); /* Transparent background */
-            pointer-events: none;
-            transition: all 0.3s ease;
-        }
-
-        .overlay:hover {
-            border-color: rgba(255, 0, 0, 0.7); /* Red glow on hover */
-            box-shadow: 0 0 15px rgba(255, 0, 0, 0.7);
+        area:hover {
+            background-color: rgba(255, 0, 0, 0.5); /* Darker red background on hover */
         }
     </style>
 </head>
 <body>
 
-<div class="map-container">
-    <img src="empty map.png" usemap="#image-map">
-    <!-- Overlays for polygon and circle -->
-    <div class="overlay" id="overlay1"></div>
-    <div class="overlay" id="overlay2"></div>
-</div>
+<img src="empty map.png" usemap="#image-map">
 
 <map name="image-map">
     <area target="_self" alt="S3-Q3" title="S3-Q3" href="https://cat-bounce.com/" coords="957,1619,960,1896,316,1614,33,955,299,959,495,1414" shape="poly">
     <area target="_self" alt="piss" title="piss" href="https://cat-bounce.com/" coords="1223,1660,87" shape="circle">
 </map>
-
-<script>
-    // Coordinates for polygon and circle
-    const polygonCoords = [957,1619,960,1896,316,1614,33,955,299,959,495,1414];
-    const circleCoords = [1223,1660,87];
-
-    // Function to position polygon overlay
-    function createPolygonOverlay() {
-        const overlay = document.getElementById("overlay1");
-        const coords = polygonCoords;
-
-        // Determine the width and height of the polygon using the coords
-        const minX = Math.min(...coords.filter((_, i) => i % 2 === 0));
-        const maxX = Math.max(...coords.filter((_, i) => i % 2 === 0));
-        const minY = Math.min(...coords.filter((_, i) => i % 2 !== 0));
-        const maxY = Math.max(...coords.filter((_, i) => i % 2 !== 0));
-
-        // Set the position and size of the polygon overlay
-        overlay.style.left = `${minX}px`;
-        overlay.style.top = `${minY}px`;
-        overlay.style.width = `${maxX - minX}px`;
-        overlay.style.height = `${maxY - minY}px`;
-
-        // Use clip-path to create a polygon
-        overlay.style.clipPath = `polygon(${coords.map((coord, i) => {
-            return `${coords[i % 2 === 0 ? i : i - 1]}px ${coord}px`;
-        }).join(", ")})`;
-    }
-
-    // Function to position circle overlay
-    function createCircleOverlay() {
-        const overlay = document.getElementById("overlay2");
-        const [centerX, centerY, radius] = circleCoords;
-
-        // Set the circle overlay properties
-        overlay.style.left = `${centerX - radius}px`;
-        overlay.style.top = `${centerY - radius}px`;
-        overlay.style.width = `${radius * 2}px`; // diameter
-        overlay.style.height = `${radius * 2}px`;
-        overlay.style.borderRadius = "50%";
-    }
-
-    // Create overlays when the page loads
-    window.onload = function() {
-        createPolygonOverlay();
-        createCircleOverlay();
-    };
-</script>
 
 </body>
 </html>

@@ -5,24 +5,38 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Interactive Map</title>
     <style>
-        /* Make the area visible with a border */
-        area {
-            outline: 2px solid rgba(0, 255, 0, 0.5); /* Add an outline so areas are visible */
+        /* Set the image to be the background */
+        .map-container {
+            position: relative;
+            display: inline-block;
+        }
+        .map-container img {
+            display: block;
+            width: 100%;
+            height: auto;
         }
 
-        /* Glow effect when hovering over the area */
-        area:hover {
-            outline: 2px solid rgba(255, 0, 0, 0.7); /* Glow effect */
+        /* Create clickable area */
+        .area {
+            position: absolute;
+            border: 2px solid rgba(0, 255, 0, 0.5); /* Visible area */
+            background-color: rgba(255, 0, 0, 0.2); /* Transparent area */
+        }
+
+        /* Glow effect when hovering */
+        .area:hover {
+            border-color: rgba(255, 0, 0, 0.7); /* Glow effect */
             box-shadow: 0 0 15px rgba(255, 0, 0, 0.7);
         }
     </style>
 </head>
 <body>
-    <img src="empty map.png" usemap="#image-map">
 
-    <map name="image-map">
-        <area target="_self" alt="S233-Q3" title="S3323-Q3" href="https://cat-bounce.com/" coords="957,1619,960,1896,316,1614,33,955,299,959,495,1414" shape="poly">
-        <area target="_self" alt="piss" title="piss" href="https://cat-bounce.com/" coords="1223,1660,87" shape="circle">
-    </map>
+    <div class="map-container">
+        <img src="empty map.png" usemap="#image-map">
+        <a href="https://cat-bounce.com/" class="area" style="top: 100px; left: 200px; width: 150px; height: 100px;" title="S3-Q323"></a>
+        <a href="https://cat-bounce.com/" class="area" style="top: 300px; left: 400px; width: 100px; height: 100px;" title="piseds"></a>
+    </div>
+
 </body>
 </html>
